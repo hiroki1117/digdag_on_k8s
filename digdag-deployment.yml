@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+      - name: digdag
+        image: hiroki1117/digdag:v2
+        command: ["java"]
+        args: ["-jar", "/usr/local/bin/digdag", "server", "-m", "-b", "0.0.0.0"]
+        ports:
+        - containerPort: 65432
